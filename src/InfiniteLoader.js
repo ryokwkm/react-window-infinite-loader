@@ -27,6 +27,8 @@ export type Props = {|
   // It should return a Promise that is resolved once all data has finished loading.
   loadMoreItems: (startIndex: number, stopIndex: number) => Promise<void>,
 
+  onScrollHandler: (startIndex: number, stopIndex: number) => null,
+
   // Renamed to loadMoreItems in v1.0.3; will be removed in v2.0
   loadMoreRows?: (startIndex: number, stopIndex: number) => Promise<void>,
 
@@ -98,6 +100,7 @@ export default class InfiniteLoader extends PureComponent<Props> {
 
     this._lastRenderedStartIndex = visibleStartIndex;
     this._lastRenderedStopIndex = visibleStopIndex;
+    this.props.onScrollHandler(visibleStartIndex, visibleStopIndex);
 
     this._ensureRowsLoaded(visibleStartIndex, visibleStopIndex);
   };
